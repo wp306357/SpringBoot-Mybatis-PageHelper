@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gome.wp.dao.CityMapper">
+
+    <!-- type为实体类City，包名已经配置，可以直接写类名 -->
+    <resultMap id="cityMap" type="City">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="state" column="state" />
+        <result property="country" column="country" />
+    </resultMap>
+
+    <select id="selectOneByPrimaryKey" resultType="City" parameterType="int">
+        SELECT *
+        FROM city
+        WHERE ID = #{id}
+    </select>
+    <select id="selectList" resultType="City" parameterType="City">
+        SELECT *
+        FROM city
+        <where>
+            <if test="id != null">
+                ID = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                name LIKE #{name}
+            </if>
+            <if test="country != null and country != ''">
+                country = #{country}
+            </if>
+        </where>
+    </select>
+
+</mapper>
